@@ -109,8 +109,8 @@ paths:
                 400.31:
                   $ref: '#/components/examples/401'
       deprecated: false
-      security:
-        - basicAuth: [ ]
+#      security:
+#        - basicAuth: [ ]
   /transfer-registration/v1/searchVehicle:
     get:
       tags:
@@ -186,8 +186,8 @@ paths:
                 400.31:
                   $ref: '#/components/examples/401'
       deprecated: false
-      security:
-        - basicAuth: [ ]
+#      security:
+#        - basicAuth: [ ]
   /transfer-registration/v1/person:
     post:
       tags:
@@ -218,8 +218,8 @@ paths:
           description: Internal Server Error
           content: { }
       deprecated: false
-      security:
-        - basicAuth: [ ]
+#      security:
+#        - basicAuth: [ ]
   /transfer-registration/v1/vehicle:
     post:
       tags:
@@ -250,8 +250,8 @@ paths:
           description: Internal Server Error
           content: { }
       deprecated: false
-      security:
-        - basicAuth: [ ]
+#      security:
+#        - basicAuth: [ ]
 components:
   schemas:
     Error:
@@ -407,7 +407,7 @@ components:
       value:
         description: Authorization Failed
         errors: []
-  securitySchemes:
-    basicAuth: # <-- arbitrary name for the security scheme
-      type: http
-      scheme: basic
+#  securitySchemes:
+#    basicAuth: # <-- arbitrary name for the security scheme
+#      type: http
+#      scheme: basic
