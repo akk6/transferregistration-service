@@ -27,11 +27,6 @@ public class TransferRegistrationController implements TransferRegistrationApi {
     }
 
     @Override
-    public ResponseEntity<ServiceStatus> healthUsingGET() {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<Person> retrievePerson(SearchPersonRequest searchPersonRequest) {
         return null;
     }

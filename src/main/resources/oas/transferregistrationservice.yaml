@@ -10,7 +10,7 @@ tags:
   - name: Transfer Registration API
     description: The API endpoints enables a client to link or unlink a Person to a Vehicle.
 paths:
-  /transfer-registration/health:
+  /transfer-registration-monitoring/health:
     get:
       tags:
         - Transfer Registration Health Check
