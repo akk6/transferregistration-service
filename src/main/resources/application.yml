@@ -1,0 +1,79 @@
+#------------------------------------------------------------------------------
+#  SPRING CONFIGURATION FILE.
+#------------------------------------------------------------------------------
+# General Project Information
+# Note that properties using the @someproperty@ syntax refers to maven#
+# properties. THus we propogate maven information into spring health checks
+#------------------------------------------------------------------------------
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+    api.version:
+    java:
+      version: "@java.version@"
+
+api:
+  version: 1.0
+  name: Transfer Registration Service
+  description: The API endpoints enables a client to link or unlink a Person to a Vehicle
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  jackson:
+    default-property-inclusion: non_null
+  devtools:
+    restart:
+      enabled: true
+springdoc:
+  swagger-ui:
+    path: /docs/swagger-ui.html
+logging:
+  level:
+    root: INFO
+    au.gov.nsw.revenue.transferregistrationservice: DEBUG
+server:
+  port: 8181
+  servlet:
+    context-path: /transferregistrationservice
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+  output:
+    ansi:
+      enabled: always
+  devtools:
+    restart:
+      enabled: true
+springdoc:
+  swagger-ui:
+    path: /docs/swagger-ui-qa.html
+logging:
+  level:
+    root: INFO
+    au.gov.nsw.revenue.transferregistrationservice: INFO
+server:
+  port: 8080
+  servlet:
+    context-path: /transferregistrationservice
+---
+spring:
+  config:
+    activate:
+      on-profile: integration-test
+  output:
+    ansi:
+      enabled: always
+  devtools:
+    restart:
+      enabled: false
+logging:
+  level:
+    org.springframework: INFO
+    root: INFO
+    au.gov.nsw.revenue.transferregistrationservice: DEBUG
