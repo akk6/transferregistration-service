@@ -1,0 +1,413 @@
+openapi: "3.0.2"
+info:
+  title: Transfer Registration Service
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+tags:
+  - name: Transfer Registration Health Check
+    description: The API enables a client to check if the Transfer Registration service is healthy.
+  - name: Transfer Registration API
+    description: The API endpoints enables a client to link or unlink a Person to a Vehicle.
+paths:
+  /transfer-registration/health:
+    get:
+      tags:
+        - Transfer Registration Health Check
+      summary: The API enables a client to check if the Transfer Registration service is healthy.
+      operationId: healthUsingGET
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceStatus'
+        400:
+          description: Bad Request
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+  /transfer-registration/v1/searchPerson:
+    post:
+      tags:
+        - Transfer Registration API
+      summary: Retrieve an unique Person corresponding to the emailId and optional mobile number
+      operationId: retrievePerson
+      requestBody:
+        description: searchPersonRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPersonRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        400:
+          description: This error occurs when there is a validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/400'
+        408:
+          description: This error occurs when request times out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/408'
+
+        500:
+          description: Internal Server Error has occured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/500'
+        501:
+          description: Not implemented - Specified resource is not implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/501'
+        503:
+          description: Service is unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/503'
+        401:
+          description: Authentication Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/401'
+      deprecated: false
+      security:
+        - basicAuth: [ ]
+  /transfer-registration/v1/searchVehicle:
+    get:
+      tags:
+        - Transfer Registration API
+      summary: Retrieve an unique Vehicle corresponding registration Number
+      operationId: retrieveVehicle
+      parameters:
+        - name: registrationNumber
+          in: query
+          description: Unique identifier of the vehicle
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        400:
+          description: This error occurs when there is a validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/400'
+        408:
+          description: This error occurs when request times out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/408'
+
+        500:
+          description: Internal Server Error has occured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/500'
+        501:
+          description: Not implemented - Specified resource is not implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/501'
+        503:
+          description: Service is unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/503'
+        401:
+          description: Authentication Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400.31:
+                  $ref: '#/components/examples/401'
+      deprecated: false
+      security:
+        - basicAuth: [ ]
+  /transfer-registration/v1/person:
+    post:
+      tags:
+        - Transfer Registration API
+      summary: createPerson
+      operationId: createPerson
+      requestBody:
+        description: createPersonRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        400:
+          description: Bad Request
+          content: { }
+        401:
+          description: Unauthorized
+          content: { }
+        500:
+          description: Internal Server Error
+          content: { }
+      deprecated: false
+      security:
+        - bearerAuth: [ ]
+  /transfer-registration/v1/vehicle:
+    post:
+      tags:
+        - Transfer Registration API
+      summary: createVehicle
+      operationId: createVehicle
+      requestBody:
+        description: createVehicleRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+        required: true
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        400:
+          description: Bad Request
+          content: { }
+        401:
+          description: Unauthorized
+          content: { }
+        500:
+          description: Internal Server Error
+          content: { }
+      deprecated: false
+      security:
+        - bearerAuth: [ ]
+components:
+  schemas:
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: number
+          format: double
+        details:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        description:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ServiceStatus:
+      title: ServiceStatus
+      type: object
+      properties:
+        status:
+          type: string
+    Person:
+      title: Person
+      type: object
+      required:
+        - emailId
+        - password
+      properties:
+        emailId:
+          type: string
+          pattern: ^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$
+          example: "test@gmail.com"
+          description: Email address of the account holder.This will be used to login into the account created
+        mobilenumber:
+          type: string
+          pattern: ^04[0-9]{8}$
+          example: "0462098765"
+          description: Australian Mobile Number
+        password:
+          type: string
+          format: password
+        vehiclesRegistered:
+          readOnly: true
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Vehicle'
+    Vehicle:
+      title: Vehicle
+      type: object
+      required:
+        - registrationNumber
+        - model
+        - make
+        - year
+        - vin
+      properties:
+        registrationNumber:
+          type: string
+          pattern: ([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)
+          example: "SDF78A"
+        model:
+          type: string
+          example: "Focus"
+        make:
+          type: string
+          example: "Ford"
+        year:
+          type: integer
+          pattern: ^\d{4}$
+          example: "2010"
+        vin:
+          type: string
+          pattern: ([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)
+          minLength: 11
+          maxLength: 17
+        registeredPerson:
+          $ref: '#/components/schemas/Person'
+          readOnly: true
+    SearchPersonRequest:
+      title: SearchPersonRequest
+      type: object
+      required:
+        - emailId
+      properties:
+        emailId:
+          type: string
+          pattern: ^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$
+          example: "test@gmail.com"
+          description: Email address of the account holder.This will be used to login into the account created
+        mobilenumber:
+          type: string
+          pattern: ^04[0-9]{8}$
+          example: "0462098765"
+          description: Australian Mobile Number
+  examples:
+    400:
+      value:
+        description: Method Argument Validation
+        errors: [
+          {
+            field: "emailId",
+            message: "Null value for 'emailId'",
+            details: " Please refer specifications and provide all parameter details"
+          },
+          {
+            field: "password",
+            message: "Null value for 'password'",
+            details: " Please refer specifications and provide all parameter details"
+          }
+        ]
+    404:
+      value:
+        description: The specified resource does not exist
+        errors: []
+    405:
+      value:
+        description: The specified resource does not exist
+        errors: []
+    408:
+      value:
+        description: Request timeout
+        errors: []
+    500:
+      value:
+        description: Internal Server Error has occured
+        errors: []
+    501:
+      value:
+        description: Not implemented - Specified resource is not implemented
+        errors: []
+    503:
+      value:
+        description: Service is unavailable
+        errors: []
+    401:
+      value:
+        description: Authentication Failed
+        errors: []
+    403:
+      value:
+        description: Authorization Failed
+        errors: []
+  securitySchemes:
+    basicAuth: # <-- arbitrary name for the security scheme
+      type: http
+      scheme: basic
