@@ -18,6 +18,7 @@ public class SecurityConfiguration {
 
     @Profile("!qa")
     @EnableWebSecurity
+    @Configuration
     public class SecurityDisabledConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -32,6 +33,7 @@ public class SecurityConfiguration {
     @Profile("qa")
     @EnableGlobalMethodSecurity(prePostEnabled = true)
     @EnableWebSecurity
+    @Configuration
     public class SecurityEnabledConfig extends WebSecurityConfigurerAdapter {
 
         @Value("${basic.auth.username}")
