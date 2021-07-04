@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Profile;
 
 @Profile("qa")
 @Configuration
-@SecurityScheme(
-        name = "basicAuth",
-        type = SecuritySchemeType.HTTP,
-        scheme = "basic"
-)
+//@SecurityScheme(
+//        name = "basicAuth",
+//        type = SecuritySchemeType.HTTP,
+//        scheme = "basic"
+//)
 public class OpenAPIConfiguration {
 
     @Bean

@@ -58,9 +58,19 @@ logging:
     root: INFO
     au.gov.nsw.revenue.transferregistrationservice: INFO
 server:
-  port: 8080
+  port: 8443
   servlet:
     context-path: /transferregistrationservice
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/qa/xferrego.p12
+    key-store-password: changeit
+    key-alias: xferrego
+    enabled: true
+basic:
+  auth:
+    username: adminUser
+    pwd: adminPassword
 ---
 spring:
   config:

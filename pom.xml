@@ -67,6 +67,17 @@
 			<version>1.6.2</version>
 		</dependency>
 		<!--Open API Related Jars-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>2.5.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>5.5.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
