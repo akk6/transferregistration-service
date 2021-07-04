@@ -58,59 +58,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/400'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         408:
           description: This error occurs when request times out
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/408'
-
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         500:
           description: Internal Server Error has occured
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/500'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         501:
           description: Not implemented - Specified resource is not implemented
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/501'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         503:
           description: Service is unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/503'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         401:
           description: Authentication Failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/401'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
       deprecated: false
-#      security:
-#        - basicAuth: [ ]
+      security:
+        - basicAuth: [ ]
   /transfer-registration/v1/searchVehicle:
     get:
       tags:
@@ -135,59 +116,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/400'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         408:
           description: This error occurs when request times out
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/408'
-
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         500:
           description: Internal Server Error has occured
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/500'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         501:
           description: Not implemented - Specified resource is not implemented
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/501'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         503:
           description: Service is unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/503'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
         401:
           description: Authentication Failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                400.31:
-                  $ref: '#/components/examples/401'
+                $ref: '#/components/schemas/TransferRegistrationApiError'
       deprecated: false
-#      security:
-#        - basicAuth: [ ]
+      security:
+        - basicAuth: [ ]
   /transfer-registration/v1/person:
     post:
       tags:
@@ -218,8 +180,8 @@ paths:
           description: Internal Server Error
           content: { }
       deprecated: false
-#      security:
-#        - basicAuth: [ ]
+      security:
+        - basicAuth: [ ]
   /transfer-registration/v1/vehicle:
     post:
       tags:
@@ -250,35 +212,20 @@ paths:
           description: Internal Server Error
           content: { }
       deprecated: false
-#      security:
-#        - basicAuth: [ ]
+      security:
+        - basicAuth: [ ]
 components:
   schemas:
-    Error:
-      title: Error
+    TransferRegistrationApiError:
+      title: TransferRegistrationApiError
       type: object
       properties:
-        code:
-          type: number
-          format: double
-        details:
-          type: string
-        field:
+        status:
           type: string
         message:
           type: string
-        type:
+        debugMessage:
           type: string
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      properties:
-        description:
-          type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     ServiceStatus:
       title: ServiceStatus
       type: object
@@ -340,9 +287,6 @@ components:
           pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
           minLength: 11
           maxLength: 17
-#        registeredPerson:
-#          $ref: '#/components/schemas/Person'
-#          readOnly: true
     SearchPersonRequest:
       title: SearchPersonRequest
       type: object
@@ -359,55 +303,3 @@ components:
           pattern: "^04[0-9]{8}$"
           example: "0462098765"
           description: Australian Mobile Number
-  examples:
-    400:
-      value:
-        description: Method Argument Validation
-        errors: [
-          {
-            field: "emailId",
-            message: "Null value for 'emailId'",
-            details: " Please refer specifications and provide all parameter details"
-          },
-          {
-            field: "password",
-            message: "Null value for 'password'",
-            details: " Please refer specifications and provide all parameter details"
-          }
-        ]
-    404:
-      value:
-        description: The specified resource does not exist
-        errors: []
-    405:
-      value:
-        description: The specified resource does not exist
-        errors: []
-    408:
-      value:
-        description: Request timeout
-        errors: []
-    500:
-      value:
-        description: Internal Server Error has occured
-        errors: []
-    501:
-      value:
-        description: Not implemented - Specified resource is not implemented
-        errors: []
-    503:
-      value:
-        description: Service is unavailable
-        errors: []
-    401:
-      value:
-        description: Authentication Failed
-        errors: []
-    403:
-      value:
-        description: Authorization Failed
-        errors: []
-#  securitySchemes:
-#    basicAuth: # <-- arbitrary name for the security scheme
-#      type: http
-#      scheme: basic
