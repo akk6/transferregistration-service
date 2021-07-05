@@ -10,6 +10,9 @@ import au.gov.nsw.revenue.transferregistrationservice.openapi.model.VehicleDetai
 public class TransferRegistrationUtils {
 
     public static PersonEntity mapPersonEntityFromRest(Person person){
+        if(person==null){
+            return null;
+        }
         return PersonEntity.builder().mobileNumber(person.getMobileNumber()).emailId(person.getEmailId()).password(person.getPassword()).build();
     }
 
@@ -24,12 +27,18 @@ public class TransferRegistrationUtils {
     }
 
     public static VehicleEntity mapVehicleEntityFromRestVehicleDetails(VehicleDetails vehicleDetails){
+        if(vehicleDetails==null){
+            return null;
+        }
         return VehicleEntity.builder().registrationNumber(vehicleDetails.getRegistrationNumber())
                 .make(vehicleDetails.getMake()).vin(vehicleDetails.getVin()).model(vehicleDetails.getModel()).year(vehicleDetails.getYear())
                 .build();
     }
 
     public static VehicleDetails mapVehicleDetailsFromEntity(VehicleEntity vehicleEntity){
+        if(vehicleEntity==null){
+            return null;
+        }
         VehicleDetails vehicleDetails = new VehicleDetails();
         vehicleDetails.setModel(vehicleEntity.getModel());
         vehicleDetails.setMake(vehicleEntity.getMake());
@@ -40,6 +49,9 @@ public class TransferRegistrationUtils {
     }
 
     public static Vehicle mapVehicleFromEntity(VehicleEntity vehicleEntity){
+        if(vehicleEntity==null){
+            return null;
+        }
         Vehicle vehicle = new Vehicle();
         VehicleDetails vehicleDetails = new VehicleDetails();
         vehicleDetails.setModel(vehicleEntity.getModel());
