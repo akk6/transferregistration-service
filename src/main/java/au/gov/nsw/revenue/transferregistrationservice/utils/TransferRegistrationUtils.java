@@ -9,6 +9,10 @@ import au.gov.nsw.revenue.transferregistrationservice.openapi.model.VehicleDetai
 
 public class TransferRegistrationUtils {
 
+    private TransferRegistrationUtils(){
+        throw new IllegalStateException("Helper CLass");
+    }
+
     public static PersonEntity mapPersonEntityFromRest(Person person){
         if(person==null){
             return null;
