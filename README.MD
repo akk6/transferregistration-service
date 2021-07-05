@@ -62,7 +62,7 @@ B) **Steps to run the project in QA profile**
 
 **Testing Done:**
 - Units tests
-- Manaual testing using Postman fo this test.In production grade applications we can use frameworks like Karate to write feature wise test cases and run them via Kenkins pipeline
+- Manaual testing using Postman fo this test.In production grade applications we can use frameworks like Karate to write feature wise test cases and run them via Jenkins pipeline
 
 **Benefites Of Open API**
 - Design-First Approach can be easily followed
