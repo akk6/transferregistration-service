@@ -104,6 +104,8 @@ paths:
           description: Unique identifier of the vehicle
           schema:
             type: string
+            pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
+            example: "SDF78A"
       responses:
         200:
           description: OK
@@ -193,11 +195,93 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Vehicle'
+              $ref: '#/components/schemas/VehicleDetails'
         required: true
       responses:
         201:
           description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleDetails'
+        400:
+          description: Bad Request
+          content: { }
+        401:
+          description: Unauthorized
+          content: { }
+        500:
+          description: Internal Server Error
+          content: { }
+      deprecated: false
+      security:
+        - basicAuth: [ ]
+  /transfer-registration/v1/linkPerson:
+    put:
+      tags:
+        - Transfer Registration API
+      summary: linkPerson
+      operationId: linkPerson
+      parameters:
+        - name: registrationNumber
+          in: query
+          description: Unique identifier of vehicle
+          required: true
+          schema:
+            type: string
+            pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
+            example: "SDF78A"
+      requestBody:
+        description: linkPersonRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnerDetails'
+        required: true
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        400:
+          description: Bad Request
+          content: { }
+        401:
+          description: Unauthorized
+          content: { }
+        500:
+          description: Internal Server Error
+          content: { }
+      deprecated: false
+      security:
+        - basicAuth: [ ]
+  /transfer-registration/v1/unlinkPerson:
+    put:
+      tags:
+        - Transfer Registration API
+      summary: unlinkPerson
+      operationId: unlinkPerson
+      parameters:
+        - name: registrationNumber
+          in: query
+          description: Unique identifier of vehicle
+          required: true
+          schema:
+            type: string
+            pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
+            example: "SDF78A"
+      requestBody:
+        description: unlinkPersonRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnerDetailsForUnlink'
+        required: true
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -244,7 +328,7 @@ components:
           pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
           example: "test@gmail.com"
           description: Email address of the account holder.This will be used to login into the account created
-        mobilenumber:
+        mobileNumber:
           type: string
           pattern: "^04[0-9]{8}$"
           example: "0462098765"
@@ -252,14 +336,19 @@ components:
         password:
           type: string
           format: password
-#        vehiclesRegistered:
-#          readOnly: true
-#          type: array
-#          minItems: 1
-#          items:
-#            $ref: '#/components/schemas/Vehicle'
     Vehicle:
       title: Vehicle
+      type: object
+      required:
+        - vehicleDetails
+        - ownerDetails
+      properties:
+        vehicleDetails:
+          $ref: '#/components/schemas/VehicleDetails'
+        ownerDetails:
+          $ref: '#/components/schemas/OwnerDetails'
+    VehicleDetails:
+      title: VehicleDetails
       type: object
       required:
         - registrationNumber
@@ -298,8 +387,67 @@ components:
           pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
           example: "test@gmail.com"
           description: Email address of the account holder.This will be used to login into the account created
-        mobilenumber:
+        mobileNumber:
           type: string
           pattern: "^04[0-9]{8}$"
           example: "0462098765"
           description: Australian Mobile Number
+    OwnerDetails:
+      title: OwnerDetails
+      type: object
+      required:
+        - firstName
+        - lastName
+        - dob
+        - postCode
+        - emailId
+      properties:
+        firstName:
+          type: string
+          example: "John"
+          description: The first name of the vehicle owner
+        lastName:
+          type: string
+          example: "Sameul"
+          description: The lastname of the vehicle owner
+        dob:
+          type: string
+          format: date
+          description: The date of birth of the vehicle owner
+        streetName:
+          type: string
+          description: The street Name without the street number and type.Please enter Sweet for 15 Sweet Street
+        postCode:
+          type: number
+          minLength: 4
+          maxLength: 4
+          description: The postcode of the suburb where the owner is residing
+        emailId:
+          type: string
+          pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
+          example: "test@gmail.com"
+    OwnerDetailsForUnlink:
+      title: OwnerDetailsForUnlink
+      type: object
+      required:
+        - firstName
+        - lastName
+        - dob
+        - emailId
+      properties:
+        firstName:
+          type: string
+          example: "John"
+          description: The first name of the vehicle owner
+        lastName:
+          type: string
+          example: "Sameul"
+          description: The lastname of the vehicle owner
+        dob:
+          type: string
+          format: date
+          description: The date of birth of the vehicle owner
+        emailId:
+          type: string
+          pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
+          example: "test@gmail.com"
