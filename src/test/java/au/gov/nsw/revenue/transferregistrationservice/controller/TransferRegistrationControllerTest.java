@@ -82,7 +82,6 @@ class TransferRegistrationControllerTest {
         searchPersonRequest= new SearchPersonRequest();
         searchPersonRequest.setEmailId(MOCK_EMAIL_ID);
         searchPersonRequest.setMobileNumber(MOCK_MOB);
-
     }
 
     @Test
@@ -104,7 +103,7 @@ class TransferRegistrationControllerTest {
     }
 
     @Test
-    void givenPerson_whenPostVehicle_thenReturnPerson() throws Exception {
+    void givenPerson_whenSearchPersonUsingPost_thenReturnPerson() throws Exception {
         when(transferRegistrationService.retrievePerson(searchPersonRequest)).thenReturn(person);
         String json = mapper.writeValueAsString(searchPersonRequest);
         mvc.perform(MockMvcRequestBuilders.post("/transfer-registration/v1/searchPerson").content(json)
