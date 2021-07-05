@@ -6,8 +6,6 @@ import au.gov.nsw.revenue.transferregistrationservice.openapi.model.OwnerDetails
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class TransferRegistrationDatabaseServiceImpl implements TransferRegistrationDatabaseService{
 
@@ -39,11 +37,11 @@ public class TransferRegistrationDatabaseServiceImpl implements TransferRegistra
 
     @Override
     public VehicleEntity linkPerson(String registrationNumber, OwnerDetails ownerDetails) {
-        return null;
+        return vehicleRepository.linkPerson(registrationNumber,ownerDetails);
     }
 
     @Override
     public VehicleEntity unlinkPerson(String registrationNumber, OwnerDetails ownerDetails) {
-        return null;
+        return vehicleRepository.unlinkPerson(registrationNumber,ownerDetails);
     }
 }

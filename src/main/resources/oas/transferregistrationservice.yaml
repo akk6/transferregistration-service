@@ -224,7 +224,7 @@ paths:
       operationId: linkPerson
       parameters:
         - name: registrationNumber
-          in: path
+          in: query
           description: Unique identifier of vehicle
           required: true
           schema:
@@ -265,7 +265,7 @@ paths:
       operationId: unlinkPerson
       parameters:
         - name: registrationNumber
-          in: path
+          in: query
           description: Unique identifier of vehicle
           required: true
           schema:

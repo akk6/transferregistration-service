@@ -1,7 +1,5 @@
 package au.gov.nsw.revenue.transferregistrationservice.exception;
 
-import java.util.Arrays;
-
 import au.gov.nsw.revenue.transferregistrationservice.openapi.model.TransferRegistrationApiError;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Arrays;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -84,5 +84,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		xferRegistrationError.setMessage(ex.getMessage());
 		xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
 		return new ResponseEntity<>(xferRegistrationError,HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(VehicleLinkingException.class)
+	protected ResponseEntity<Object> handleVehicleLinkingException(VehicleLinkingException ex) {
+		TransferRegistrationApiError xferRegistrationError = new TransferRegistrationApiError();
+		xferRegistrationError.setStatus(HttpStatus.NOT_FOUND.name());
+		xferRegistrationError.setMessage(ex.getMessage());
+		xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
+		return new ResponseEntity<>(xferRegistrationError,HttpStatus.BAD_REQUEST);
 	}
 }

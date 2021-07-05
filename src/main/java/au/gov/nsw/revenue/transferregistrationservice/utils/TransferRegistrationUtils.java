@@ -20,7 +20,6 @@ public class TransferRegistrationUtils {
         Person person = new Person();
         person.setEmailId(personEntity.getEmailId());
         person.setMobileNumber(personEntity.getMobileNumber());
-        person.setPassword(personEntity.getPassword());
         return person;
     }
 
@@ -38,16 +37,6 @@ public class TransferRegistrationUtils {
         vehicleDetails.setVin(vehicleEntity.getVin());
         vehicleDetails.year(vehicleEntity.getYear());
         return vehicleDetails;
-    }
-
-    public static VehicleEntity mapVehicleEntityFromRestVehicle(Vehicle vehicle){
-        return VehicleEntity.builder().registrationNumber(vehicle.getVehicleDetails().getRegistrationNumber())
-                .make(vehicle.getVehicleDetails().getMake()).vin(vehicle.getVehicleDetails().getVin())
-                .model(vehicle.getVehicleDetails().getModel()).year(vehicle.getVehicleDetails().getYear())
-                .firstName(vehicle.getOwnerDetails().getFirstName()).lastName(vehicle.getOwnerDetails().getLastName())
-                .postCode(vehicle.getOwnerDetails().getPostCode()).dob(vehicle.getOwnerDetails().getDob())
-                .streetName(vehicle.getOwnerDetails().getStreetName()).emailId(vehicle.getOwnerDetails().getEmailId())
-                .build();
     }
 
     public static Vehicle mapVehicleFromEntity(VehicleEntity vehicleEntity){

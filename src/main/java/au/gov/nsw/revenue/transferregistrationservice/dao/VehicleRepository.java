@@ -3,6 +3,7 @@ package au.gov.nsw.revenue.transferregistrationservice.dao;
 import au.gov.nsw.revenue.transferregistrationservice.entities.VehicleEntity;
 import au.gov.nsw.revenue.transferregistrationservice.exception.VehicleAlreadyExistsException;
 import au.gov.nsw.revenue.transferregistrationservice.exception.VehicleNotFoundException;
+import au.gov.nsw.revenue.transferregistrationservice.openapi.model.OwnerDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
@@ -30,5 +31,23 @@ public class VehicleRepository {
             return vehicleEntity;
         }
         throw new VehicleNotFoundException("Vehicle Not found for registration Number {} "+registrationNumber);
+    }
+
+    public VehicleEntity linkPerson(String registrationNumber, OwnerDetails ownerDetails){
+        VehicleEntity vehicleEntity = this.vehicles.get(registrationNumber);
+        vehicleEntity.setDob(ownerDetails.getDob());
+        vehicleEntity.setEmailId(ownerDetails.getEmailId());
+        vehicleEntity.setFirstName(ownerDetails.getFirstName());
+        vehicleEntity.setLastName(ownerDetails.getLastName());
+        vehicleEntity.setPostCode(ownerDetails.getPostCode());
+        vehicleEntity.setStreetName(ownerDetails.getStreetName());
+        this.vehicles.replace(registrationNumber, vehicleEntity);
+        return vehicleEntity;
+    }
+
+    public VehicleEntity unlinkPerson(String registrationNumber, OwnerDetails ownerDetails){
+        VehicleEntity vehicleEntity = this.vehicles.get(registrationNumber);
+        this.vehicles.replace(registrationNumber, VehicleEntity.builder().year(vehicleEntity.getYear()).model(vehicleEntity.getModel()).vin(vehicleEntity.getVin()).make(vehicleEntity.getMake()).build());
+        return this.vehicles.get(registrationNumber);
     }
 }

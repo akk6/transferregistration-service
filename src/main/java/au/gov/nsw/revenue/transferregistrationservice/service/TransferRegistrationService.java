@@ -1,7 +1,6 @@
 package au.gov.nsw.revenue.transferregistrationservice.service;
 
 import au.gov.nsw.revenue.transferregistrationservice.openapi.model.*;
-import org.springframework.stereotype.Service;
 
 public interface TransferRegistrationService {
     public Person createPerson(Person person);
