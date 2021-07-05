@@ -3,6 +3,7 @@ package au.gov.nsw.revenue.transferregistrationservice.dao;
 import au.gov.nsw.revenue.transferregistrationservice.entities.PersonEntity;
 import au.gov.nsw.revenue.transferregistrationservice.entities.VehicleEntity;
 import au.gov.nsw.revenue.transferregistrationservice.openapi.model.OwnerDetails;
+import au.gov.nsw.revenue.transferregistrationservice.openapi.model.OwnerDetailsForUnlink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class TransferRegistrationDatabaseServiceImpl implements TransferRegistra
     }
 
     @Override
-    public VehicleEntity unlinkPerson(String registrationNumber, OwnerDetails ownerDetails) {
+    public VehicleEntity unlinkPerson(String registrationNumber, OwnerDetailsForUnlink ownerDetails) {
         return vehicleRepository.unlinkPerson(registrationNumber,ownerDetails);
     }
 }

@@ -51,7 +51,7 @@ public class TransferRegistrationController implements TransferRegistrationApi {
     }
 
     @Override
-    public ResponseEntity<Vehicle> unlinkPerson(String registrationNumber, OwnerDetails ownerDetails) {
+    public ResponseEntity<Vehicle> unlinkPerson(String registrationNumber, OwnerDetailsForUnlink ownerDetails) {
         Vehicle vehicleResponse = transferRegistrationService.unlinkPerson(registrationNumber,ownerDetails);
         return ResponseEntity.status(HttpStatus.OK).body(vehicleResponse);
     }

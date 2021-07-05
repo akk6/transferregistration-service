@@ -35,13 +35,21 @@ public class TransferRegistrationServiceImpl implements TransferRegistrationServ
     }
 
     @Override
-    public Vehicle unlinkPerson(String registrationNumber, OwnerDetails ownerDetails) {
+    public Vehicle unlinkPerson(String registrationNumber, OwnerDetailsForUnlink ownerDetails) {
         VehicleEntity vehicleEntity = transferRegistrationDatabaseService.retrieveVehicle(registrationNumber);
         if(vehicleEntity.getEmailId()==null){
             throw new VehicleLinkingException("Registration Number "+registrationNumber+ " not linked to any account.");
         }
         if(vehicleEntity.getEmailId()!=null && !vehicleEntity.getEmailId().equals(ownerDetails.getEmailId())){
             throw new VehicleLinkingException("Registration Number "+registrationNumber+ " not linked to your account.");
+        }
+        if(!(ownerDetails.getFirstName().equalsIgnoreCase(vehicleEntity.getFirstName())
+                &&
+          ownerDetails.getLastName().equalsIgnoreCase(vehicleEntity.getLastName())
+                &&
+          ownerDetails.getDob().toString().equals(vehicleEntity.getDob().toString())
+        )){
+            throw new VehicleLinkingException("The Owner in Request does not match the owner details in the system");
         }
         return TransferRegistrationUtils.mapVehicleFromEntity(transferRegistrationDatabaseService.unlinkPerson(registrationNumber,ownerDetails));
     }

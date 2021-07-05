@@ -4,6 +4,7 @@ import au.gov.nsw.revenue.transferregistrationservice.entities.VehicleEntity;
 import au.gov.nsw.revenue.transferregistrationservice.exception.VehicleAlreadyExistsException;
 import au.gov.nsw.revenue.transferregistrationservice.exception.VehicleNotFoundException;
 import au.gov.nsw.revenue.transferregistrationservice.openapi.model.OwnerDetails;
+import au.gov.nsw.revenue.transferregistrationservice.openapi.model.OwnerDetailsForUnlink;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
@@ -45,7 +46,7 @@ public class VehicleRepository {
         return vehicleEntity;
     }
 
-    public VehicleEntity unlinkPerson(String registrationNumber, OwnerDetails ownerDetails){
+    public VehicleEntity unlinkPerson(String registrationNumber, OwnerDetailsForUnlink ownerDetails){
         VehicleEntity vehicleEntity = this.vehicles.get(registrationNumber);
         this.vehicles.replace(registrationNumber, VehicleEntity.builder().year(vehicleEntity.getYear()).model(vehicleEntity.getModel()).vin(vehicleEntity.getVin()).make(vehicleEntity.getMake()).build());
         return this.vehicles.get(registrationNumber);

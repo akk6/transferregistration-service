@@ -277,7 +277,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OwnerDetails'
+              $ref: '#/components/schemas/OwnerDetailsForUnlink'
         required: true
       responses:
         200:
@@ -422,6 +422,31 @@ components:
           minLength: 4
           maxLength: 4
           description: The postcode of the suburb where the owner is residing
+        emailId:
+          type: string
+          pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
+          example: "test@gmail.com"
+    OwnerDetailsForUnlink:
+      title: OwnerDetailsForUnlink
+      type: object
+      required:
+        - firstName
+        - lastName
+        - dob
+        - emailId
+      properties:
+        firstName:
+          type: string
+          example: "John"
+          description: The first name of the vehicle owner
+        lastName:
+          type: string
+          example: "Sameul"
+          description: The lastname of the vehicle owner
+        dob:
+          type: string
+          format: date
+          description: The date of birth of the vehicle owner
         emailId:
           type: string
           pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
