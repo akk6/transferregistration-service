@@ -49,4 +49,40 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
         return new ResponseEntity<>(xferRegistrationError,HttpStatus.CONFLICT);
 	}
+
+	@ExceptionHandler(PersonAlreadyExistsException.class)
+	protected ResponseEntity<Object> handlePersonAlreadyExists(PersonAlreadyExistsException ex) {
+		TransferRegistrationApiError xferRegistrationError = new TransferRegistrationApiError();
+		xferRegistrationError.setStatus(HttpStatus.CONFLICT.name());
+		xferRegistrationError.setMessage(ex.getMessage());
+		xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
+		return new ResponseEntity<>(xferRegistrationError,HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(PersonNotFoundException.class)
+	protected ResponseEntity<Object> handlePersonNotFoundException(PersonNotFoundException ex) {
+		TransferRegistrationApiError xferRegistrationError = new TransferRegistrationApiError();
+		xferRegistrationError.setStatus(HttpStatus.NOT_FOUND.name());
+		xferRegistrationError.setMessage(ex.getMessage());
+		xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
+		return new ResponseEntity<>(xferRegistrationError,HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(VehicleAlreadyExistsException.class)
+	protected ResponseEntity<Object> handlePersonAlreadyExists(VehicleAlreadyExistsException ex) {
+		TransferRegistrationApiError xferRegistrationError = new TransferRegistrationApiError();
+		xferRegistrationError.setStatus(HttpStatus.CONFLICT.name());
+		xferRegistrationError.setMessage(ex.getMessage());
+		xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
+		return new ResponseEntity<>(xferRegistrationError,HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(VehicleNotFoundException.class)
+	protected ResponseEntity<Object> handleVehicleNotFoundException(VehicleNotFoundException ex) {
+		TransferRegistrationApiError xferRegistrationError = new TransferRegistrationApiError();
+		xferRegistrationError.setStatus(HttpStatus.NOT_FOUND.name());
+		xferRegistrationError.setMessage(ex.getMessage());
+		xferRegistrationError.setDebugMessage(ex.getStackTrace() != null ? Arrays.toString(ex.getStackTrace()) : ex.getMessage());
+		return new ResponseEntity<>(xferRegistrationError,HttpStatus.NOT_FOUND);
+	}
 }
