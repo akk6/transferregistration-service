@@ -49,6 +49,7 @@ B) **Steps to run the project in QA profile**
 - CustomExceptionHandler has been implemented which will customise the messages sent back in a particular format
 - Basic Auth has been implemented
 - Profile based logging has been implemented
+- Names of the tests in Postman are such that they will give an idea as to what use case is in question
 
 **Assumptions used while developing the services:**
 - Since the requirements specified that a DB is not required, I have used in memory java collections
