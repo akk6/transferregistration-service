@@ -106,6 +106,8 @@ paths:
             type: string
             pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
             example: "SDF78A"
+            maxLength: 7
+            minLength: 1
       responses:
         200:
           description: OK
@@ -231,6 +233,8 @@ paths:
             type: string
             pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
             example: "SDF78A"
+            maxLength: 7
+            minLength: 1
       requestBody:
         description: linkPersonRequest
         content:
@@ -272,6 +276,8 @@ paths:
             type: string
             pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
             example: "SDF78A"
+            maxLength: 7
+            minLength: 1
       requestBody:
         description: unlinkPersonRequest
         content:
@@ -361,6 +367,8 @@ components:
           type: string
           pattern: "([0-9]+[a-zA-Z][0-9a-zA-Z]*)|([a-zA-Z]+[0-9][0-9a-zA-Z]*)"
           example: "SDF78A"
+          maxLength: 7
+          minLength: 1
         model:
           type: string
           example: "Focus"
@@ -413,7 +421,7 @@ components:
         dob:
           type: string
           format: date
-          description: The date of birth of the vehicle owner
+          description: The date of birth of the vehicle owner in format YYYY-MM-DD
         streetName:
           type: string
           description: The street Name without the street number and type.Please enter Sweet for 15 Sweet Street
@@ -446,7 +454,7 @@ components:
         dob:
           type: string
           format: date
-          description: The date of birth of the vehicle owner
+          description: The date of birth of the vehicle owner in format YYYY-MM-DD
         emailId:
           type: string
           pattern: "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"

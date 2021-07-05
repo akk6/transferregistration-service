@@ -31,7 +31,7 @@ public class VehicleRepository {
         if(vehicleEntity!=null){
             return vehicleEntity;
         }
-        throw new VehicleNotFoundException("Vehicle Not found for registration Number {} "+registrationNumber);
+        throw new VehicleNotFoundException("Vehicle Not found for registration Number "+registrationNumber);
     }
 
     public VehicleEntity linkPerson(String registrationNumber, OwnerDetails ownerDetails){
